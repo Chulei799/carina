@@ -1,0 +1,111 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Chulei Tests - Android Test" verbose="1" parallel="methods">
+
+    <parameter name="suiteOwner" value="chulei799" />
+    <parameter name="provider" value="mcloud"/>
+    <parameter name="jenkinsJobName" value="Mobile-Android-Demo-Test" />
+    <parameter name="jenkinsJobType" value="android"/>
+    <parameter name="jenkinsEmail" value="demo@qaprosoft.com" />
+    <parameter name="jenkinsEnvironments" value="DEMO" />
+
+    <parameter name="stringParam::capabilities.app::path to carina demo mobile application" value="https://qaprosoft.s3-us-west-2.amazonaws.com/carinademoexample.apk" />
+
+    <parameter name="jenkinsMobileDefaultPool" value="ANY" />
+
+    <parameter name="jenkinsRegressionPipeline" value="mobile_regression" />
+    <parameter name="jenkinsPipelineEnvironments" value="DEMO" />
+    <parameter name="jenkinsJobExecutionOrder" value="3" />
+    <parameter name="jenkinsJobExecutionMode" value="continue" />
+    <parameter name="jenkinsAutoScreenshot" value="true" />
+
+    <test name="Login Page | Validation UI Elements">
+        <classes>
+            <class name="com.qaprosoft.carina.chulei.mobile.android.tests.AndroidLoginPageTest">
+                <methods>
+                    <include name="validationUIElementsTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Login Page | Validation Radio Buttons">
+        <classes>
+            <class name="com.qaprosoft.carina.chulei.mobile.android.tests.AndroidLoginPageTest">
+                <methods>
+                    <include name="validationRadioButtonsTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Login Page | Login Validation">
+        <classes>
+            <class name="com.qaprosoft.carina.chulei.mobile.android.tests.AndroidLoginPageTest">
+                <methods>
+                    <include name="loginValidationTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Web View | Right Menu Elements">
+        <classes>
+            <class name="com.qaprosoft.carina.chulei.mobile.android.tests.AndroidWebViewTest">
+                <methods>
+                    <include name="rightMenuElementsTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Web View | Footer Menu Elements">
+        <classes>
+            <class name="com.qaprosoft.carina.chulei.mobile.android.tests.AndroidWebViewTest">
+                <methods>
+                    <include name="footerMenuElementsTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Charts Page | All Charts Present">
+        <classes>
+            <class name="com.qaprosoft.carina.chulei.mobile.android.tests.AndroidChartsPageTest">
+                <methods>
+                    <include name="allChartsPresentTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Map Page | All Elements Present and Click Zoom">
+        <classes>
+            <class name="com.qaprosoft.carina.chulei.mobile.android.tests.AndroidMapPageTest">
+                <methods>
+                    <include name="allElementsPresentAndClickZoomTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="UI Elements Page | Validate All UI Elements">
+        <classes>
+            <class name="com.qaprosoft.carina.chulei.mobile.android.tests.AndroidUIElementsPageTest">
+                <methods>
+                    <include name="validateAllUIElementsTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="UI Elements Page | Set All UI Elements">
+        <classes>
+            <class name="com.qaprosoft.carina.chulei.mobile.android.tests.AndroidUIElementsPageTest">
+                <methods>
+                    <include name="setAllUIElementsTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
