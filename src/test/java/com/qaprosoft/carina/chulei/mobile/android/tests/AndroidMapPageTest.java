@@ -1,10 +1,8 @@
 package com.qaprosoft.carina.chulei.mobile.android.tests;
 
 import com.qaprosoft.carina.chulei.constants.IConstants;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.LoginPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.MapPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.WebViewPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.WelcomePageBase;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.common.*;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.components.enums.LMComponent;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.mobile.IMobileUtils;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
@@ -33,11 +31,10 @@ public class AndroidMapPageTest implements IAbstractTest, IMobileUtils, IConstan
         loginPage.checkPrivacyPolicyCheckBox(true);
 
         WebViewPageBase webViewPage = loginPage.signUp();
-        Assert.assertTrue(webViewPage.isPageOpened(), "Web View page isn't opened!");
-        webViewPage.openLeftMenu();
-        softAssert.assertTrue(webViewPage.isLeftMenuOpened(), "Left menu isn't opened(Web View)!");
+        LeftMenuPageBase leftMenu = webViewPage.openLeftMenu();
+        softAssert.assertTrue(leftMenu.isPageOpened(), "Left menu isn't opened(Web View)!");
 
-        MapPageBase mapPage = webViewPage.openMapPage();
+        MapPageBase mapPage = (MapPageBase) leftMenu.openPageFromLeftMenu(LMComponent.MAP);
         Assert.assertTrue(mapPage.isPageOpened(), "Map page isn't opened!");
         softAssert.assertTrue(mapPage.isImageViewPresent(), "Image view isn't present!");
         softAssert.assertTrue(mapPage.isMapPresent(), "Map isn't present!");

@@ -1,8 +1,7 @@
 package com.qaprosoft.carina.chulei.mobile.gui.pages.common;
 
 import com.qaprosoft.carina.chulei.constants.IConstants;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.components.enums.FMComponent;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.components.enums.RMComponent;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.components.FooterMenu;
 import com.qaprosoft.carina.core.foundation.utils.mobile.IMobileUtils;
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
@@ -13,31 +12,23 @@ public abstract class WebViewPageBase extends AbstractPage implements IMobileUti
         super(driver);
     }
 
-    public abstract boolean isLeftMenuOpened();
-
-    public abstract boolean isRightMenuOpened();
-
     public abstract boolean isImageViewPresent();
+    
+    public abstract boolean isCarinaLogoPresent();
 
-    public abstract boolean isRMElemPresent(RMComponent component);
+    public abstract boolean isCarinaTextPresent();
 
-    public abstract boolean isFMElemPresent(FMComponent component);
+    public abstract boolean isCarinaDescriptionPresent();
+    
+    public abstract boolean isReadOnGitHubBtnPresent();
+    
+    public abstract boolean isInstallationGuideBtnPresent();
+    
+    public abstract boolean isWelcomeToCarinaPresent();
 
-    public abstract void openLeftMenu();
+    public abstract FooterMenu getFooterMenu();
 
-    public abstract void rightMenu(String operation);
+    public abstract RightMenuPageBase openRightMenu();
 
-    public abstract void swipeToPrivacyPolicy();
-
-    public abstract boolean isFooterMenuPresent();
-
-    public abstract void clickOnFooterMenuMessenger(String messenger);
-
-    public abstract WebViewPageBase openWebViewPage();
-
-    public abstract ChartsPageBase openChartsPage();
-
-    public abstract MapPageBase openMapPage();
-
-    public abstract UIElementsPageBase openUIElementsPage();
+    public abstract LeftMenuPageBase openLeftMenu();
 }

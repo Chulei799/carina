@@ -2,7 +2,10 @@ package com.qaprosoft.carina.chulei.mobile.android.tests;
 
 import com.qaprosoft.carina.chulei.constants.IConstants;
 import com.qaprosoft.carina.chulei.mobile.gui.pages.common.*;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.android.LeftMenuPage;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.components.FooterMenu;
 import com.qaprosoft.carina.chulei.mobile.gui.pages.components.enums.FMComponent;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.components.enums.LMComponent;
 import com.qaprosoft.carina.chulei.mobile.gui.pages.components.enums.RMComponent;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.mobile.IMobileUtils;
@@ -33,25 +36,29 @@ public class AndroidWebViewTest implements IAbstractTest, IMobileUtils, IConstan
 
         WebViewPageBase webViewPage = loginPage.signUp();
         Assert.assertTrue(webViewPage.isPageOpened(), "Web View page isn't opened!");
-        webViewPage.openLeftMenu();
-        softAssert.assertTrue(webViewPage.isLeftMenuOpened(), "Left menu isn't opened(Web View)!");
+        LeftMenuPageBase leftMenuPage = webViewPage.openLeftMenu();
+        softAssert.assertTrue(leftMenuPage.isPageOpened(), "Left menu isn't opened(Web View)!");
 
-        ChartsPageBase chartsPage = webViewPage.openChartsPage();
+        for(LMComponent lmComponent : LMComponent.values()) {
+            softAssert.assertTrue(leftMenuPage.isMenuElementPresent(lmComponent), lmComponent.getName() + " page isn't present!");
+        }
+
+        ChartsPageBase chartsPage = (ChartsPageBase) leftMenuPage.openPageFromLeftMenu(LMComponent.CHARTS);
         Assert.assertTrue(chartsPage.isPageOpened(), "Charts page isn't opened!");
-        chartsPage.openLeftMenu();
-        softAssert.assertTrue(chartsPage.isLeftMenuOpened(), "Left menu isn't opened(Charts)!");
+        leftMenuPage = chartsPage.openLeftMenu();
+        softAssert.assertTrue(leftMenuPage.isPageOpened(), "Left menu isn't opened(Charts)!");
 
-        MapPageBase mapPage = chartsPage.openMapPage();
+        MapPageBase mapPage = (MapPageBase) leftMenuPage.openPageFromLeftMenu(LMComponent.MAP);
         softAssert.assertTrue(mapPage.isPageOpened(), "Map page isn't opened!");
-        mapPage.openLeftMenu();
-        softAssert.assertTrue(mapPage.isLeftMenuOpened(), "Left menu isn't opened(Map)!");
+        leftMenuPage = mapPage.openLeftMenu();
+        softAssert.assertTrue(leftMenuPage.isPageOpened(), "Left menu isn't opened(Map)!");
 
-        UIElementsPageBase uiElementsPage = mapPage.openUIElementsPage();
+        UIElementsPageBase uiElementsPage = (UIElementsPageBase) leftMenuPage.openPageFromLeftMenu(LMComponent.UI_ELEMENTS);
         softAssert.assertTrue(uiElementsPage.isPageOpened(), "UIElements page isn't opened!");
-        uiElementsPage.openLeftMenu();
-        softAssert.assertTrue(uiElementsPage.isLeftMenuOpened(), "Left menu isn't opened(UIElements)");
+        leftMenuPage = uiElementsPage.openLeftMenu();
+        softAssert.assertTrue(leftMenuPage.isPageOpened(), "Left menu isn't opened(UIElements)");
 
-        webViewPage = uiElementsPage.openWebViewPage();
+        webViewPage = (WebViewPageBase) leftMenuPage.openPageFromLeftMenu(LMComponent.WEB_VIEW);
         softAssert.assertTrue(webViewPage.isPageOpened(), "Web View page isn't opened!");
 
         softAssert.assertAll();
@@ -77,15 +84,12 @@ public class AndroidWebViewTest implements IAbstractTest, IMobileUtils, IConstan
         //RM is a Right Menu
         WebViewPageBase webViewPage = loginPage.signUp();
         Assert.assertTrue(webViewPage.isPageOpened(), "Web View page isn't opened!");
-        webViewPage.rightMenu(OPEN);
-        softAssert.assertTrue(webViewPage.isRightMenuOpened(), "Right menu isn't opened!");
-        softAssert.assertTrue(webViewPage.isRMElemPresent(RMComponent.LOGO), "Logo isn't present!");
-        softAssert.assertTrue(webViewPage.isRMElemPresent(RMComponent.READ_ON_GITHUB), "Read on github isn't present!");
-        softAssert.assertTrue(webViewPage.isRMElemPresent(RMComponent.INSTALLATION_GUIDE), "Installation guide isn't present!");
-        softAssert.assertTrue(webViewPage.isRMElemPresent(RMComponent.GO_TO_ZEBRUNNER), "Go to zebrunner isn't present!");
-        softAssert.assertTrue(webViewPage.isRMElemPresent(RMComponent.DONATE), "Donate isn't present!");
-        softAssert.assertTrue(webViewPage.isRMElemPresent(RMComponent.CONTACT_US), "Contact us isn't present!");
-        webViewPage.rightMenu(CLOSE);
+        RightMenuPageBase rightMenu = webViewPage.openRightMenu();
+        softAssert.assertTrue(rightMenu.isPageOpened(), "Right menu isn't opened!");
+        for(RMComponent component : RMComponent.values()) {
+            softAssert.assertTrue(rightMenu.isMenuElementPresent(component), component.getName() + " isn't present!");
+        }
+        webViewPage.openRightMenu();
 
         softAssert.assertAll();
     }
@@ -110,16 +114,16 @@ public class AndroidWebViewTest implements IAbstractTest, IMobileUtils, IConstan
         //FM is a Footer Menu
         WebViewPageBase webViewPage = loginPage.signUp();
         Assert.assertTrue(webViewPage.isPageOpened(), "Web View page isn't opened!");
-        webViewPage.swipeToPrivacyPolicy();
-        softAssert.assertTrue(webViewPage.isFooterMenuPresent(), "Footer menu isn't present!");
-        softAssert.assertTrue(webViewPage.isFMElemPresent(FMComponent.LOGO), "Zebrunner logo isn't present!");
-        softAssert.assertTrue(webViewPage.isFMElemPresent(FMComponent.FACEBOOK), "Facebook isn't present!");
-        softAssert.assertTrue(webViewPage.isFMElemPresent(FMComponent.TWITTER), "Twitter isn't present!");
-        softAssert.assertTrue(webViewPage.isFMElemPresent(FMComponent.LINKEDIN), "LinkedIn isn't present!");
-        softAssert.assertTrue(webViewPage.isFMElemPresent(FMComponent.TELEGRAM), "Telegram isn't present!");
-        softAssert.assertTrue(webViewPage.isFMElemPresent(FMComponent.LOCATION), "Location isn't present!");
-        softAssert.assertTrue(webViewPage.isFMElemPresent(FMComponent.SUPPORT), "Support isn't present!");
-        softAssert.assertTrue(webViewPage.isFMElemPresent(FMComponent.PRIVACY_POLICY), "Privacy policy isn't present!");
+        FooterMenu footerMenu = webViewPage.getFooterMenu();
+        softAssert.assertTrue(footerMenu.isFooterMenuPresent(), "Footer menu isn't present!");
+        softAssert.assertTrue(footerMenu.isZebrunnerLogoPresent(), "Zebrunner logo isn't present!");
+        softAssert.assertTrue(footerMenu.isMessengerPresent(FACEBOOK), "Facebook isn't present!");
+        softAssert.assertTrue(footerMenu.isMessengerPresent(TWITTER), "Twitter isn't present!");
+        softAssert.assertTrue(footerMenu.isMessengerPresent(LINKEDIN), "LinkedIn isn't present!");
+        softAssert.assertTrue(footerMenu.isMessengerPresent(TELEGRAM), "Telegram isn't present!");
+        softAssert.assertTrue(footerMenu.isLocationPresent(), "Location isn't present!");
+        softAssert.assertTrue(footerMenu.isSupportPresent(), "Support isn't present!");
+        softAssert.assertTrue(footerMenu.isPrivacyPolicyPresent(), "Privacy policy isn't present!");
 
         softAssert.assertAll();
     }

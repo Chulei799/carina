@@ -1,10 +1,8 @@
 package com.qaprosoft.carina.chulei.mobile.android.tests;
 
 import com.qaprosoft.carina.chulei.constants.IConstants;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.ChartsPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.LoginPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.WebViewPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.WelcomePageBase;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.common.*;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.components.enums.LMComponent;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.mobile.IMobileUtils;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
@@ -33,16 +31,13 @@ public class AndroidChartsPageTest implements IAbstractTest, IMobileUtils, ICons
         loginPage.checkPrivacyPolicyCheckBox(true);
 
         WebViewPageBase webViewPage = loginPage.signUp();
-        Assert.assertTrue(webViewPage.isPageOpened(), "Web View page isn't opened!");
-        webViewPage.openLeftMenu();
-        softAssert.assertTrue(webViewPage.isLeftMenuOpened(), "Left menu isn't opened(Web View)!");
+        LeftMenuPageBase leftMenu = webViewPage.openLeftMenu();
+        softAssert.assertTrue(leftMenu.isPageOpened(), "Left menu isn't opened(Web View)!");
 
-        ChartsPageBase chartsPage = webViewPage.openChartsPage();
+        ChartsPageBase chartsPage = (ChartsPageBase) leftMenu.openPageFromLeftMenu(LMComponent.CHARTS);
         Assert.assertTrue(chartsPage.isPageOpened(), "Charts page isn't opened!");
         softAssert.assertTrue(chartsPage.isFruitChartPresent(), "Fruit chart isn't present!");
-        chartsPage.swipeToVennDiagram();
         softAssert.assertTrue(chartsPage.isVennDiagramPresent(), "Venn diagram isn't present!");
-        chartsPage.swipeToHiloDiagram();
         softAssert.assertTrue(chartsPage.isHiloChartPresent(), "Hilo chart isn't present!");
 
         softAssert.assertAll();

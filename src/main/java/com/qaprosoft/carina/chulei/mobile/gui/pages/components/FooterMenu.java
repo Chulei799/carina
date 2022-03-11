@@ -1,23 +1,28 @@
 package com.qaprosoft.carina.chulei.mobile.gui.pages.components;
 
 import com.qaprosoft.carina.chulei.constants.IConstants;
+import com.qaprosoft.carina.core.foundation.utils.mobile.IMobileUtils;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 import java.util.List;
 
-public class FooterMenu extends AbstractUIObject implements IConstants {
+public class FooterMenu extends AbstractUIObject implements IConstants, IMobileUtils {
+
+    @FindBy(xpath = "//*[@resource-id = 'rec407789353']")
+    private ExtendedWebElement footerMenuContent;
 
     @FindBy(xpath = "//*[@resource-id = 'rec407789353']/*[@content-desc = 'zebrunner']")
     private ExtendedWebElement zebrunnerLogo;
 
-    @FindBy(xpath = ".//android.view.View[3]/android.view.View")
+    @FindBy(xpath = "//*[@resource-id = 'Layer_1']")
     private List<ExtendedWebElement> messengersList;
 
-    @FindBy(xpath = ".//android.widget.ListView/android.view.View")
+    @FindBy(xpath = "//*[@resource-id = 'rec407789353']//*[contains(@text, 'Zebrunner, Inc')]")
     private ExtendedWebElement location;
 
     @FindBy(xpath = "//*[@text = 'support@zebrunner.com']")
@@ -30,69 +35,43 @@ public class FooterMenu extends AbstractUIObject implements IConstants {
         super(driver, searchContext);
     }
 
+    public boolean isFooterMenuPresent() {
+        return swipe(footerMenuContent, Direction.UP, 50, 500);
+    }
+
     public boolean isZebrunnerLogoPresent() {
-        return zebrunnerLogo.isElementPresent(FIVE_SECONDS);
+        return swipe(zebrunnerLogo, Direction.UP, 50, 500);
     }
 
-    public boolean isMessengerPresent(String messenger) {
-        switch (messenger) {
-            case FACEBOOK:
-                messengersList.get(0).isElementPresent(FIVE_SECONDS);
-                return true;
-            case TWITTER:
-                messengersList.get(1).isElementPresent(FIVE_SECONDS);
-                return true;
-            case LINKEDIN:
-                messengersList.get(2).isElementPresent(FIVE_SECONDS);
-                return true;
-            case TELEGRAM:
-                messengersList.get(3).isElementPresent(FIVE_SECONDS);
-                return true;
-            default:
-                return false;
+    public boolean isMessengerPresent(int index) {
+        if(!swipe(privacyPolicy, Direction.UP, 50, 500)) {
+            Assert.fail("FooterMenu | Privacy policy isn't present!");
         }
-    }
-
-    public int messengerListSize() {
-        return messengersList.size();
+        if(messengersList.isEmpty() || index >= messengersList.size()) {
+            Assert.fail("FooterMenu | List empty or index > then list size!");
+        }
+        return messengersList.get(index).isElementPresent(THREE_SECONDS);
     }
 
     public boolean isLocationPresent() {
-        return location.isElementPresent(FIVE_SECONDS);
+        return swipe(location, Direction.UP, 50, 500);
     }
 
     public boolean isSupportPresent() {
-        return support.isElementPresent(FIVE_SECONDS);
+        return swipe(support, Direction.UP, 50, 500);
     }
 
     public boolean isPrivacyPolicyPresent() {
-        return privacyPolicy.isElementPresent(FIVE_SECONDS);
+        return swipe(privacyPolicy, Direction.UP, 50, 500);
     }
 
-    public String getLocationText() {
-        return location.getText();
-    }
-
-    public boolean clickOnMessenger(String messenger) {
-        switch (messenger) {
-            case FACEBOOK:
-                messengersList.get(0).click();
-                return true;
-            case TWITTER:
-                messengersList.get(1).click();
-                return true;
-            case LINKEDIN:
-                messengersList.get(2).click();
-                return true;
-            case TELEGRAM:
-                messengersList.get(3).click();
-                return true;
-            default:
-                return false;
+    public void clickOnMessenger(int index) {
+        if(!swipe(privacyPolicy, Direction.UP, 50, 500)) {
+            Assert.fail("FooterMenu | Privacy policy isn't present!");
         }
-    }
-
-    public ExtendedWebElement getPrivacyPolicy() {
-        return privacyPolicy;
+        if(messengersList.isEmpty() || index >= messengersList.size()) {
+            Assert.fail("FooterMenu | List empty or index > then list size!");
+        }
+        messengersList.get(index).click(ONE_SECOND);
     }
 }

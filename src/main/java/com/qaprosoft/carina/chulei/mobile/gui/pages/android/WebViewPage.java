@@ -1,31 +1,33 @@
 package com.qaprosoft.carina.chulei.mobile.gui.pages.android;
 
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.ChartsPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.MapPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.UIElementsPageBase;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.common.LeftMenuPageBase;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.common.RightMenuPageBase;
 import com.qaprosoft.carina.chulei.mobile.gui.pages.common.WebViewPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.components.*;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.components.enums.FMComponent;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.components.enums.RMComponent;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.components.FooterMenu;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.components.ImageView;
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = WebViewPageBase.class)
 public class WebViewPage extends WebViewPageBase {
 
-    @FindBy(id = "com.solvd.carinademoapplication:id/toolbar")
-    private ToolBar toolBar;
+    @FindBy(xpath = "//*[@resource-id = 'com.solvd.carinademoapplication:id/toolbar']//android.widget.TextView")
+    private ExtendedWebElement pageName;
 
-    @FindBy(id = "com.solvd.carinademoapplication:id/design_navigation_view")
-    private LeftMenu leftMenu;
+    @FindBy(xpath = "//*[@content-desc='Navigate up']")
+    private ExtendedWebElement leftMenuBtn;
 
     @FindBy(id = "com.solvd.carinademoapplication:id/image_slider")
     private ImageView imageView;
 
+    @FindBy(xpath = "//*[@resource-id = 'allrecords']")
+    private ExtendedWebElement scrollView;
+
     @FindBy(xpath = "//*[@resource-id = 'rec42972268']//android.view.View[2]")
-    private RightMenu rightMenu;
+    private ExtendedWebElement rightMenuBtn;
 
     @FindBy(xpath = "//*[@resource-id = 'rec407789353']")
     private FooterMenu footerMenu;
@@ -54,17 +56,7 @@ public class WebViewPage extends WebViewPageBase {
 
     @Override
     public boolean isPageOpened() {
-        return toolBar.getPageName().equals("Web View");
-    }
-
-    @Override
-    public boolean isLeftMenuOpened() {
-        return leftMenu.isOpened();
-    }
-
-    @Override
-    public boolean isRightMenuOpened() {
-        return rightMenu.isOpened();
+        return waitUntil(ExpectedConditions.visibilityOf(carinaLogo.getElement()), 20);
     }
 
     @Override
@@ -73,106 +65,49 @@ public class WebViewPage extends WebViewPageBase {
     }
 
     @Override
-    public boolean isRMElemPresent(RMComponent component) {
-        switch (component) {
-            case LOGO:
-                return rightMenu.isLogoPresent();
-            case READ_ON_GITHUB:
-                return rightMenu.isReadOnGitHubPresent();
-            case INSTALLATION_GUIDE:
-                return rightMenu.isInstallationGuidePresent();
-            case GO_TO_ZEBRUNNER:
-                return rightMenu.isGoToZebrunnerPresent();
-            case DONATE:
-                return rightMenu.isDonatePresent();
-            case CONTACT_US:
-                return rightMenu.isContactUsPresent();
-            default:
-                return false;
-        }
+    public boolean isCarinaLogoPresent() {
+        return swipe(carinaLogo, scrollView, Direction.DOWN, 40, 500);
     }
 
     @Override
-    public boolean isFMElemPresent(FMComponent component) {
-        switch (component) {
-            case LOGO:
-                return footerMenu.isZebrunnerLogoPresent();
-            case FACEBOOK:
-                return footerMenu.isMessengerPresent(FACEBOOK);
-            case TWITTER:
-                return footerMenu.isMessengerPresent(TWITTER);
-            case LINKEDIN:
-                return footerMenu.isMessengerPresent(LINKEDIN);
-            case TELEGRAM:
-                return footerMenu.isMessengerPresent(TELEGRAM);
-            case LOCATION:
-                return footerMenu.isLocationPresent();
-            case SUPPORT:
-                return footerMenu.isSupportPresent();
-            case PRIVACY_POLICY:
-                return footerMenu.isPrivacyPolicyPresent();
-            default:
-                return false;
-        }
+    public boolean isCarinaTextPresent() {
+        return swipe(carinaText, scrollView, Direction.DOWN, 40, 500);
     }
 
     @Override
-    public void openLeftMenu() {
-        toolBar.openLeftMenu();
+    public boolean isCarinaDescriptionPresent() {
+        return swipe(carinaDescription, scrollView, Direction.DOWN, 40, 500);
     }
 
     @Override
-    public void rightMenu(String operation) {
-        if(operation.equals(OPEN)) {
-            if(!rightMenu.isOpened()) {
-                rightMenu.clickRightMenu();
-            }
-        }
-        if(operation.equals(CLOSE)) {
-            if(rightMenu.isOpened()) {
-                rightMenu.clickRightMenu();
-            }
-        }
+    public boolean isReadOnGitHubBtnPresent() {
+        return swipe(readOnGitHubBtn, scrollView, Direction.VERTICAL, 40, 500);
     }
 
     @Override
-    public void swipeToPrivacyPolicy() {
-        if(!footerMenu.isPrivacyPolicyPresent()) {
-            swipe(footerMenu.getPrivacyPolicy(), Direction.UP, 50, 500);
-        }
+    public boolean isInstallationGuideBtnPresent() {
+        return swipe(installationGuideBtn, scrollView, Direction.VERTICAL, 40, 500);
     }
 
     @Override
-    public boolean isFooterMenuPresent() {
-        return footerMenu.isZebrunnerLogoPresent();
+    public boolean isWelcomeToCarinaPresent() {
+        return swipe(welcomeToCarina, scrollView, Direction.VERTICAL, 40, 500);
     }
 
     @Override
-    public void clickOnFooterMenuMessenger(String messenger) {
-        footerMenu.clickOnMessenger(messenger);
+    public FooterMenu getFooterMenu() {
+        return footerMenu;
     }
 
     @Override
-    public WebViewPageBase openWebViewPage() {
-        leftMenu.clickWebView();
-        return new WebViewPage(driver);
+    public RightMenuPageBase openRightMenu() {
+        rightMenuBtn.click(ONE_SECOND);
+        return initPage(getDriver(), RightMenuPageBase.class);
     }
 
     @Override
-    public ChartsPageBase openChartsPage() {
-        leftMenu.clickCharts();
-        return new ChartsPage(driver);
-    }
-
-    @Override
-    public MapPageBase openMapPage() {
-        leftMenu.clickMap();
-        return new MapPage(driver);
-    }
-
-    @Override
-    public UIElementsPageBase openUIElementsPage() {
-        leftMenu.clickUIElements();
-        return new UIElementsPage(driver);
+    public LeftMenuPageBase openLeftMenu() {
+        leftMenuBtn.click(THREE_SECONDS);
+        return initPage(getDriver(), LeftMenuPageBase.class);
     }
 }

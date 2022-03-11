@@ -6,13 +6,11 @@ import com.qaprosoft.carina.core.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 
 
-public abstract class UIElementsPageBase extends AbstractPage implements IConstants, IMobileUtils {
+public abstract class UIElementsPageBase extends AbstractPage implements IMobileUtils, IConstants {
 
     public UIElementsPageBase(WebDriver driver) {
         super(driver);
     }
-
-    public abstract boolean isLeftMenuOpened();
 
     public abstract boolean isImageViewPresent();
 
@@ -30,9 +28,11 @@ public abstract class UIElementsPageBase extends AbstractPage implements IConsta
 
     public abstract boolean isSexRadioBtnPresent(String sex);
 
-    public abstract boolean isProgressBarPresent(int n);
+    public abstract boolean isCycleProgressBarPresent();
 
-    public abstract boolean isSeekBtnPresent();
+    public abstract boolean isLineProgressBarPresent();
+
+    public abstract boolean isSeekBarPresent();
 
     public abstract boolean isSwitchBtnPresent();
 
@@ -52,23 +52,11 @@ public abstract class UIElementsPageBase extends AbstractPage implements IConsta
 
     public abstract boolean isSexRadioBtnChecked(String sex);
 
-    public abstract void swipeSeekBtn(String percent);
+    public abstract void swipeSeekBar(String percent);
 
     public abstract boolean checkSwitchBtn(boolean checked);
 
     public abstract boolean checkCheckBox(boolean checked);
 
-    public abstract void scrollToSwitchBtn();
-
-    public abstract void scrollToUserImage();
-
-    public abstract void openLeftMenu();
-
-    public abstract WebViewPageBase openWebViewPage();
-
-    public abstract ChartsPageBase openChartsPage();
-
-    public abstract MapPageBase openMapPage();
-
-    public abstract UIElementsPageBase openUIElementsPage();
+    public abstract LeftMenuPageBase openLeftMenu();
 }

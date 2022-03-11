@@ -1,29 +1,24 @@
 package com.qaprosoft.carina.chulei.mobile.gui.pages.android;
 
 
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.ChartsPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.MapPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.UIElementsPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.WebViewPageBase;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.common.*;
 import com.qaprosoft.carina.chulei.mobile.gui.pages.components.ImageView;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.components.LeftMenu;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.components.ToolBar;
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
-import com.qaprosoft.carina.core.foundation.utils.mobile.IMobileUtils;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
-import io.appium.java_client.TouchAction;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = UIElementsPageBase.class)
 public class UIElementsPage extends UIElementsPageBase {
 
-    @FindBy(id = "com.solvd.carinademoapplication:id/toolbar")
-    private ToolBar toolBar;
+    @FindBy(xpath = "//*[@resource-id = 'com.solvd.carinademoapplication:id/toolbar']//android.widget.TextView")
+    private ExtendedWebElement pageName;
 
-    @FindBy(id = "com.solvd.carinademoapplication:id/design_navigation_view")
-    private LeftMenu leftMenu;
+    @FindBy(xpath = "//*[@content-desc='Navigate up']")
+    private ExtendedWebElement leftMenuBtn;
+
+    @FindBy(id = "com.solvd.carinademoapplication:id/content_frame")
+    private ExtendedWebElement pageContent;
 
     @FindBy(id = "com.solvd.carinademoapplication:id/image_slider")
     private ImageView imageView;
@@ -50,10 +45,10 @@ public class UIElementsPage extends UIElementsPageBase {
     private ExtendedWebElement sexRadioBtn;
 
     @FindBy(id = "com.solvd.carinademoapplication:id/progressBar")
-    private ExtendedWebElement firstProgressBar;
+    private ExtendedWebElement cycleProgressBar;
 
     @FindBy(id = "com.solvd.carinademoapplication:id/progressBar2")
-    private ExtendedWebElement secondProgressBar;
+    private ExtendedWebElement lineProgressBar;
 
     @FindBy(id = "com.solvd.carinademoapplication:id/seekBar")
     private ExtendedWebElement seekBar;
@@ -67,12 +62,7 @@ public class UIElementsPage extends UIElementsPageBase {
 
     @Override
     public boolean isPageOpened() {
-        return toolBar.getPageName().equals("UI elements");
-    }
-
-    @Override
-    public boolean isLeftMenuOpened() {
-        return leftMenu.isOpened();
+        return pageContent.isElementPresent(THREE_SECONDS);
     }
 
     @Override
@@ -82,109 +72,121 @@ public class UIElementsPage extends UIElementsPageBase {
 
     @Override
     public boolean isImagePresent() {
-        return image.isElementPresent(FIVE_SECONDS);
+        return swipe(image, Direction.DOWN, 20, 500);
     }
 
     @Override
     public boolean isViewFieldPresent(String fieldName) {
-        return viewField.format(fieldName).isElementPresent(FIVE_SECONDS);
+        return viewField.format(fieldName).isElementPresent(THREE_SECONDS);
     }
 
     @Override
     public boolean isTextFieldPresent() {
-        return textField.isElementPresent(FIVE_SECONDS);
+        return swipe(textField, Direction.VERTICAL, 20, 500);
     }
 
     @Override
     public boolean isEmailFieldPresent() {
-        return emailField.isElementPresent(FIVE_SECONDS);
+        return swipe(emailField, Direction.VERTICAL, 20, 500);
     }
 
     @Override
     public boolean isDateFieldPresent() {
-        return dateField.isElementPresent(FIVE_SECONDS);
+        return swipe(dateField, Direction.VERTICAL, 20, 500);
     }
 
     @Override
     public boolean isCheckBoxPresent() {
-        return checkBox.isElementPresent(FIVE_SECONDS);
+        return swipe(checkBox, Direction.VERTICAL, 20, 500);
     }
 
     @Override
     public boolean isSexRadioBtnPresent(String sex) {
-        return sexRadioBtn.format(sex).isElementPresent(FIVE_SECONDS);
+        ExtendedWebElement element = sexRadioBtn.format(sex);
+        return swipe(element, Direction.VERTICAL, 20, 500);
     }
 
     @Override
-    public boolean isProgressBarPresent(int n) {
-        switch (n) {
-            case 1:
-                return firstProgressBar.isElementPresent(FIVE_SECONDS);
-            case 2:
-                return secondProgressBar.isElementPresent(FIVE_SECONDS);
-            default:
-                return false;
-        }
+    public boolean isCycleProgressBarPresent() {
+        return swipe(cycleProgressBar, Direction.VERTICAL, 20, 500);
     }
 
     @Override
-    public boolean isSeekBtnPresent() {
-        return seekBar.isElementPresent(FIVE_SECONDS);
+    public boolean isLineProgressBarPresent() {
+        return swipe(lineProgressBar, Direction.VERTICAL, 20, 500);
+    }
+
+    @Override
+    public boolean isSeekBarPresent() {
+        return swipe(seekBar, Direction.VERTICAL, 20, 500);
     }
 
     @Override
     public boolean isSwitchBtnPresent() {
-        return switchBtn.isElementPresent(FIVE_SECONDS);
+        return swipe(switchBtn, Direction.VERTICAL, 20, 500);
     }
 
     @Override
     public void setTextField(String text) {
+        swipe(textField, Direction.VERTICAL, 20, 500);
         textField.type(text);
     }
 
     @Override
     public void setEmailField(String email) {
+        swipe(emailField, Direction.VERTICAL, 20, 500);
         emailField.type(email);
     }
 
     @Override
     public void setDateField(String date) {
+        swipe(dateField, Direction.VERTICAL, 20, 500);
         dateField.type(date);
     }
 
     @Override
     public String getTextField() {
+        swipe(textField, Direction.VERTICAL, 20, 500);
         return textField.getText();
     }
 
     @Override
     public String getEmailField() {
+        swipe(emailField, Direction.VERTICAL, 20, 500);
         return emailField.getText();
     }
 
     @Override
     public String getDateField() {
+        swipe(dateField, Direction.VERTICAL, 20, 500);
         return dateField.getText();
     }
 
     @Override
     public void clickSexRadioBtn(String sex) {
-        sexRadioBtn.format(sex).click(FIVE_SECONDS);
+        ExtendedWebElement element = sexRadioBtn.format(sex);
+        swipe(element, Direction.VERTICAL, 20, 500);
+        sexRadioBtn.format(sex).click(THREE_SECONDS);
     }
 
     @Override
     public boolean isSexRadioBtnChecked(String sex) {
+        ExtendedWebElement element = sexRadioBtn.format(sex);
+        swipe(element, Direction.VERTICAL, 20, 500);
         return sexRadioBtn.format(sex).isChecked();
     }
 
     @Override
-    public void swipeSeekBtn(String percent) {
+    public void swipeSeekBar(String percent) {
+        swipe(seekBar, Direction.VERTICAL, 20, 500);
         seekBar.type(percent);
     }
 
     @Override
     public boolean checkSwitchBtn(boolean checked) {
+        swipe(switchBtn, Direction.VERTICAL, 20, 500);
         if(checked) {
+
             switchBtn.check();
         } else {
             switchBtn.uncheck();
@@ -194,6 +196,7 @@ public class UIElementsPage extends UIElementsPageBase {
 
     @Override
     public boolean checkCheckBox(boolean checked) {
+        swipe(checkBox, Direction.VERTICAL, 20, 500);
         if(checked) {
             checkBox.check();
         } else {
@@ -201,43 +204,10 @@ public class UIElementsPage extends UIElementsPageBase {
         }
         return checkBox.isChecked();
     }
-
+    
     @Override
-    public void scrollToSwitchBtn() {
-        swipe(switchBtn);
-    }
-
-    @Override
-    public void scrollToUserImage() {
-        swipe(image);
-    }
-
-    @Override
-    public void openLeftMenu() {
-        toolBar.openLeftMenu();
-    }
-
-    @Override
-    public WebViewPageBase openWebViewPage() {
-        leftMenu.clickWebView();
-        return new WebViewPage(driver);
-    }
-
-    @Override
-    public ChartsPageBase openChartsPage() {
-        leftMenu.clickCharts();
-        return new ChartsPage(driver);
-    }
-
-    @Override
-    public MapPageBase openMapPage() {
-        leftMenu.clickMap();
-        return new MapPage(driver);
-    }
-
-    @Override
-    public UIElementsPageBase openUIElementsPage() {
-        leftMenu.clickUIElements();
-        return new UIElementsPage(driver);
+    public LeftMenuPageBase openLeftMenu() {
+        leftMenuBtn.click(ONE_SECOND);
+        return initPage(getDriver(), LeftMenuPageBase.class);
     }
 }

@@ -79,7 +79,7 @@ public class LoginPage extends LoginPageBase {
     @Override
     public WelcomePageBase clickBackBtn() {
         backBtn.click(FIVE_SECONDS);
-        return new WelcomePage(driver);
+        return initPage(driver, WelcomePageBase.class);
     }
 
     @Override
@@ -145,6 +145,6 @@ public class LoginPage extends LoginPageBase {
     @Override
     public WebViewPageBase signUp() {
         signUpBtn.click(FIVE_SECONDS);
-        return new WebViewPage(driver);
+        return initPage(driver, WebViewPageBase.class);
     }
 }

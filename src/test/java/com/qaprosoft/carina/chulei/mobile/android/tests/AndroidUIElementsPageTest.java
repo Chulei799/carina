@@ -1,10 +1,8 @@
 package com.qaprosoft.carina.chulei.mobile.android.tests;
 
 import com.qaprosoft.carina.chulei.constants.IConstants;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.LoginPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.UIElementsPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.WebViewPageBase;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.common.WelcomePageBase;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.common.*;
+import com.qaprosoft.carina.chulei.mobile.gui.pages.components.enums.LMComponent;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.mobile.IMobileUtils;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
@@ -33,11 +31,10 @@ public class AndroidUIElementsPageTest implements IAbstractTest, IMobileUtils, I
         loginPage.checkPrivacyPolicyCheckBox(true);
 
         WebViewPageBase webViewPage = loginPage.signUp();
-        Assert.assertTrue(webViewPage.isPageOpened(), "Web View page isn't opened!");
-        webViewPage.openLeftMenu();
-        softAssert.assertTrue(webViewPage.isLeftMenuOpened(), "Left menu isn't opened(Web View)!");
+        LeftMenuPageBase leftMenu = webViewPage.openLeftMenu();
+        softAssert.assertTrue(leftMenu.isPageOpened(), "Left menu isn't opened(Web View)!");
 
-        UIElementsPageBase uiElementsPage = webViewPage.openUIElementsPage();
+        UIElementsPageBase uiElementsPage = (UIElementsPageBase) leftMenu.openPageFromLeftMenu(LMComponent.UI_ELEMENTS);
         Assert.assertTrue(uiElementsPage.isPageOpened(), "UIElements page isn't opened!");
         softAssert.assertTrue(uiElementsPage.isImageViewPresent(), "Image view isn't opened!");
         softAssert.assertTrue(uiElementsPage.isImagePresent(), "Image isn't opened!");
@@ -47,13 +44,12 @@ public class AndroidUIElementsPageTest implements IAbstractTest, IMobileUtils, I
         softAssert.assertTrue(uiElementsPage.isEmailFieldPresent(), "Email field isn't present!");
         softAssert.assertTrue(uiElementsPage.isDateFieldPresent(), "Date field isn't present!");
         softAssert.assertTrue(uiElementsPage.isCheckBoxPresent(), "Check box isn't present!");
-        uiElementsPage.scrollToSwitchBtn();
         softAssert.assertTrue(uiElementsPage.isSexRadioBtnPresent(MALE), "Male sex isn't present!");
         softAssert.assertTrue(uiElementsPage.isSexRadioBtnPresent(FEMALE), "Female sex isn't present!");
         softAssert.assertTrue(uiElementsPage.isSexRadioBtnPresent(OTHER), "Other sex isn't present!");
-        softAssert.assertTrue(uiElementsPage.isProgressBarPresent(FIRST), "First progress bar isn't present!");
-        softAssert.assertTrue(uiElementsPage.isProgressBarPresent(SECOND), "Second progress bar isn't present!");
-        softAssert.assertTrue(uiElementsPage.isSeekBtnPresent(), "Seek btn isn't present!");
+        softAssert.assertTrue(uiElementsPage.isCycleProgressBarPresent(), "Cycle progress bar isn't present!");
+        softAssert.assertTrue(uiElementsPage.isLineProgressBarPresent(), "Line progress bar isn't present!");
+        softAssert.assertTrue(uiElementsPage.isSeekBarPresent(), "Seek bar isn't present!");
         softAssert.assertTrue(uiElementsPage.isSwitchBtnPresent(), "Switch btn isn't present!");
 
         softAssert.assertAll();
@@ -77,11 +73,10 @@ public class AndroidUIElementsPageTest implements IAbstractTest, IMobileUtils, I
         loginPage.checkPrivacyPolicyCheckBox(true);
 
         WebViewPageBase webViewPage = loginPage.signUp();
-        Assert.assertTrue(webViewPage.isPageOpened(), "Web View page isn't opened!");
-        webViewPage.openLeftMenu();
-        softAssert.assertTrue(webViewPage.isLeftMenuOpened(), "Left menu isn't opened(Web View)!");
+        LeftMenuPageBase leftMenu = webViewPage.openLeftMenu();
+        softAssert.assertTrue(leftMenu.isPageOpened(), "Left menu isn't opened(Web View)!");
 
-        UIElementsPageBase uiElementsPage = webViewPage.openUIElementsPage();
+        UIElementsPageBase uiElementsPage = (UIElementsPageBase) leftMenu.openPageFromLeftMenu(LMComponent.UI_ELEMENTS);
         Assert.assertTrue(uiElementsPage.isPageOpened(), "UIElements page isn't opened!");
         uiElementsPage.setTextField(SOME_TEXT);
         softAssert.assertEquals(uiElementsPage.getTextField(), SOME_TEXT, "Text field not equals!");
@@ -92,10 +87,9 @@ public class AndroidUIElementsPageTest implements IAbstractTest, IMobileUtils, I
         softAssert.assertTrue(uiElementsPage.checkCheckBox(true), "Check box isn't checked!");
         uiElementsPage.clickSexRadioBtn(FEMALE);
         softAssert.assertTrue(uiElementsPage.isSexRadioBtnChecked(FEMALE), "Female radio btn isn't checked!");
-        uiElementsPage.scrollToSwitchBtn();
         uiElementsPage.clickSexRadioBtn(OTHER);
         softAssert.assertTrue(uiElementsPage.isSexRadioBtnChecked(OTHER), "Other radio btn isn't present!");
-        uiElementsPage.swipeSeekBtn(SEVENTY_PERCENTS);
+        uiElementsPage.swipeSeekBar(SEVENTY_PERCENTS);
         softAssert.assertTrue(uiElementsPage.checkSwitchBtn(true), "Switch btn isn't checked!");
 
         softAssert.assertAll();
