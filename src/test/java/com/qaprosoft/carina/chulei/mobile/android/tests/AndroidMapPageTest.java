@@ -41,8 +41,6 @@ public class AndroidMapPageTest implements IAbstractTest, IMobileUtils, IConstan
         softAssert.assertTrue(mapPage.isGoogleImagePresent(), "Google image isn't present!");
         softAssert.assertTrue(mapPage.isZoomPresent(ZOOM_IN), "Zoom in isn't present!");
         softAssert.assertTrue(mapPage.isZoomPresent(ZOOM_OUT), "Zoom out isn't present!");
-        mapPage.clickZoom(ZOOM_IN);
-        mapPage.clickZoom(ZOOM_OUT);
 
         softAssert.assertAll();
     }

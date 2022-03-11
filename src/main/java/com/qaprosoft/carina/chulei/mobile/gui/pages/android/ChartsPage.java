@@ -1,7 +1,6 @@
 package com.qaprosoft.carina.chulei.mobile.gui.pages.android;
 
 import com.qaprosoft.carina.chulei.mobile.gui.pages.common.*;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.components.ImageView;
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
@@ -20,7 +19,7 @@ public class ChartsPage extends ChartsPageBase {
     private ExtendedWebElement pageContent;
 
     @FindBy(id = "com.solvd.carinademoapplication:id/image_slider")
-    private ImageView imageView;
+    private ExtendedWebElement imageView;
 
     @FindBy(id = "com.solvd.carinademoapplication:id/fragmentFruitChart")
     private ExtendedWebElement fruitChart;
@@ -42,22 +41,22 @@ public class ChartsPage extends ChartsPageBase {
 
     @Override
     public boolean isImageViewPresent() {
-        return imageView.isViewPagerPresent() && imageView.isAllPagerDotsPresent();
+        return imageView.isElementPresent(THREE_SECONDS);
     }
 
     @Override
     public boolean isFruitChartPresent() {
-        return swipe(fruitChart, Direction.DOWN, 10, 500);
+        return swipe(fruitChart, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isVennDiagramPresent() {
-        return swipe(vennDiagram, Direction.VERTICAL, 10, 500);
+        return swipe(vennDiagram, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isHiloChartPresent() {
-        return swipe(hiloChart, Direction.UP, 10, 500);
+        return swipe(hiloChart, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override

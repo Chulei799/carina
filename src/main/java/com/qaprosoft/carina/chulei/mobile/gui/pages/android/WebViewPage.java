@@ -4,7 +4,6 @@ import com.qaprosoft.carina.chulei.mobile.gui.pages.common.LeftMenuPageBase;
 import com.qaprosoft.carina.chulei.mobile.gui.pages.common.RightMenuPageBase;
 import com.qaprosoft.carina.chulei.mobile.gui.pages.common.WebViewPageBase;
 import com.qaprosoft.carina.chulei.mobile.gui.pages.components.FooterMenu;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.components.ImageView;
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
@@ -21,7 +20,7 @@ public class WebViewPage extends WebViewPageBase {
     private ExtendedWebElement leftMenuBtn;
 
     @FindBy(id = "com.solvd.carinademoapplication:id/image_slider")
-    private ImageView imageView;
+    private ExtendedWebElement imageView;
 
     @FindBy(xpath = "//*[@resource-id = 'allrecords']")
     private ExtendedWebElement scrollView;
@@ -56,42 +55,42 @@ public class WebViewPage extends WebViewPageBase {
 
     @Override
     public boolean isPageOpened() {
-        return waitUntil(ExpectedConditions.visibilityOf(carinaLogo.getElement()), 20);
+        return waitUntil(ExpectedConditions.visibilityOf(carinaLogo.getElement()), TWENTY_TIMEOUT);
     }
 
     @Override
     public boolean isImageViewPresent() {
-        return imageView.isViewPagerPresent() && imageView.isAllPagerDotsPresent();
+        return imageView.isElementPresent(THREE_SECONDS);
     }
 
     @Override
     public boolean isCarinaLogoPresent() {
-        return swipe(carinaLogo, scrollView, Direction.DOWN, 40, 500);
+        return swipe(carinaLogo, scrollView, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isCarinaTextPresent() {
-        return swipe(carinaText, scrollView, Direction.DOWN, 40, 500);
+        return swipe(carinaText, scrollView, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isCarinaDescriptionPresent() {
-        return swipe(carinaDescription, scrollView, Direction.DOWN, 40, 500);
+        return swipe(carinaDescription, scrollView, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isReadOnGitHubBtnPresent() {
-        return swipe(readOnGitHubBtn, scrollView, Direction.VERTICAL, 40, 500);
+        return swipe(readOnGitHubBtn, scrollView, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isInstallationGuideBtnPresent() {
-        return swipe(installationGuideBtn, scrollView, Direction.VERTICAL, 40, 500);
+        return swipe(installationGuideBtn, scrollView, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isWelcomeToCarinaPresent() {
-        return swipe(welcomeToCarina, scrollView, Direction.VERTICAL, 40, 500);
+        return swipe(welcomeToCarina, scrollView, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
@@ -107,7 +106,7 @@ public class WebViewPage extends WebViewPageBase {
 
     @Override
     public LeftMenuPageBase openLeftMenu() {
-        leftMenuBtn.click(THREE_SECONDS);
+        leftMenuBtn.click(ONE_SECOND);
         return initPage(getDriver(), LeftMenuPageBase.class);
     }
 }

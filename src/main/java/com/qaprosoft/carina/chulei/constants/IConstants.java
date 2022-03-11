@@ -8,15 +8,11 @@ public interface IConstants {
     public static final String MALE = "Male";
     public static final String FEMALE = "Female";
     public static final String OTHER = "Other";
-    public static final String OPEN = "Open";
-    public static final String CLOSE = "Close";
     public static final String USER_NAME = "Uther";
     public static final String USER_PASS = "Lightbringer";
     public static final String CLEAR = "";
     public static final String FIRST_FIELD = "Lorem ipsum";
     public static final String SECOND_FIELD = "Dolor sit amet";
-    public static final String FIRST = "First";
-    public static final String SECOND = "Second";
     public static final String SOME_TEXT = "I tried so hard and got so far";
     public static final String SOME_EMAIL = "some@email.com";
     public static final String SOME_DATE = "22.02.2022";
@@ -28,7 +24,11 @@ public interface IConstants {
     public static final int TWITTER = 1;
     public static final int LINKEDIN = 2;
     public static final int TELEGRAM = 3;
-    public static final String WELCOME_TO_CARINA_1 = "Set up Carina infrastructure in 10 minutes";
-    public static final String WELCOME_TO_CARINA_2 = "Execute tests against any platforms in multiple threads";
-    public static final String WELCOME_TO_CARINA_3 = "Reuse code up to 80% within IOS and Android";
+    public static final int FIVE_SWIPES = 5;
+    public static final int TEN_SWIPES = 10;
+    public static final int THIRTY_SWIPES = 30;
+    public static final int FAST_SWIPES = 300;
+    public static final int NORMAL_SWIPES = 600;
+    public static final int SLOW_SWIPES = 1200;
+    public static final int TWENTY_TIMEOUT = 20;
 }

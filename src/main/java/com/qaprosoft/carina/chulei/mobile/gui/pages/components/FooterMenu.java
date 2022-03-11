@@ -36,15 +36,15 @@ public class FooterMenu extends AbstractUIObject implements IConstants, IMobileU
     }
 
     public boolean isFooterMenuPresent() {
-        return swipe(footerMenuContent, Direction.UP, 50, 500);
+        return swipe(footerMenuContent, Direction.UP, THIRTY_SWIPES, FAST_SWIPES);
     }
 
     public boolean isZebrunnerLogoPresent() {
-        return swipe(zebrunnerLogo, Direction.UP, 50, 500);
+        return swipe(zebrunnerLogo, Direction.UP, THIRTY_SWIPES, FAST_SWIPES);
     }
 
     public boolean isMessengerPresent(int index) {
-        if(!swipe(privacyPolicy, Direction.UP, 50, 500)) {
+        if(!swipe(privacyPolicy, Direction.UP, THIRTY_SWIPES, FAST_SWIPES)) {
             Assert.fail("FooterMenu | Privacy policy isn't present!");
         }
         if(messengersList.isEmpty() || index >= messengersList.size()) {
@@ -54,19 +54,19 @@ public class FooterMenu extends AbstractUIObject implements IConstants, IMobileU
     }
 
     public boolean isLocationPresent() {
-        return swipe(location, Direction.UP, 50, 500);
+        return swipe(location, Direction.UP, THIRTY_SWIPES, FAST_SWIPES);
     }
 
     public boolean isSupportPresent() {
-        return swipe(support, Direction.UP, 50, 500);
+        return swipe(support, Direction.UP, THIRTY_SWIPES, FAST_SWIPES);
     }
 
     public boolean isPrivacyPolicyPresent() {
-        return swipe(privacyPolicy, Direction.UP, 50, 500);
+        return swipe(privacyPolicy, Direction.UP, THIRTY_SWIPES, FAST_SWIPES);
     }
 
     public void clickOnMessenger(int index) {
-        if(!swipe(privacyPolicy, Direction.UP, 50, 500)) {
+        if(!swipe(privacyPolicy, Direction.UP, THIRTY_SWIPES, FAST_SWIPES)) {
             Assert.fail("FooterMenu | Privacy policy isn't present!");
         }
         if(messengersList.isEmpty() || index >= messengersList.size()) {

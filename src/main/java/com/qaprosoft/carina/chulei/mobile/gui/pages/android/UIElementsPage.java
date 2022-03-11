@@ -2,7 +2,6 @@ package com.qaprosoft.carina.chulei.mobile.gui.pages.android;
 
 
 import com.qaprosoft.carina.chulei.mobile.gui.pages.common.*;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.components.ImageView;
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
@@ -21,7 +20,7 @@ public class UIElementsPage extends UIElementsPageBase {
     private ExtendedWebElement pageContent;
 
     @FindBy(id = "com.solvd.carinademoapplication:id/image_slider")
-    private ImageView imageView;
+    private ExtendedWebElement imageView;
 
     @FindBy(id = "com.solvd.carinademoapplication:id/imageView")
     private ExtendedWebElement image;
@@ -67,12 +66,12 @@ public class UIElementsPage extends UIElementsPageBase {
 
     @Override
     public boolean isImageViewPresent() {
-        return imageView.isViewPagerPresent() && imageView.isAllPagerDotsPresent();
+        return imageView.isElementPresent(THREE_SECONDS);
     }
 
     @Override
     public boolean isImagePresent() {
-        return swipe(image, Direction.DOWN, 20, 500);
+        return swipe(image, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
@@ -82,109 +81,109 @@ public class UIElementsPage extends UIElementsPageBase {
 
     @Override
     public boolean isTextFieldPresent() {
-        return swipe(textField, Direction.VERTICAL, 20, 500);
+        return swipe(textField, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isEmailFieldPresent() {
-        return swipe(emailField, Direction.VERTICAL, 20, 500);
+        return swipe(emailField, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isDateFieldPresent() {
-        return swipe(dateField, Direction.VERTICAL, 20, 500);
+        return swipe(dateField, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isCheckBoxPresent() {
-        return swipe(checkBox, Direction.VERTICAL, 20, 500);
+        return swipe(checkBox, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isSexRadioBtnPresent(String sex) {
         ExtendedWebElement element = sexRadioBtn.format(sex);
-        return swipe(element, Direction.VERTICAL, 20, 500);
+        return swipe(element, Direction.VERTICAL, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isCycleProgressBarPresent() {
-        return swipe(cycleProgressBar, Direction.VERTICAL, 20, 500);
+        return swipe(cycleProgressBar, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isLineProgressBarPresent() {
-        return swipe(lineProgressBar, Direction.VERTICAL, 20, 500);
+        return swipe(lineProgressBar, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isSeekBarPresent() {
-        return swipe(seekBar, Direction.VERTICAL, 20, 500);
+        return swipe(seekBar, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public boolean isSwitchBtnPresent() {
-        return swipe(switchBtn, Direction.VERTICAL, 20, 500);
+        return swipe(switchBtn, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
     }
 
     @Override
     public void setTextField(String text) {
-        swipe(textField, Direction.VERTICAL, 20, 500);
+        swipe(textField, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
         textField.type(text);
     }
 
     @Override
     public void setEmailField(String email) {
-        swipe(emailField, Direction.VERTICAL, 20, 500);
+        swipe(emailField, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
         emailField.type(email);
     }
 
     @Override
     public void setDateField(String date) {
-        swipe(dateField, Direction.VERTICAL, 20, 500);
+        swipe(dateField, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
         dateField.type(date);
     }
 
     @Override
     public String getTextField() {
-        swipe(textField, Direction.VERTICAL, 20, 500);
+        swipe(textField, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
         return textField.getText();
     }
 
     @Override
     public String getEmailField() {
-        swipe(emailField, Direction.VERTICAL, 20, 500);
+        swipe(emailField, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
         return emailField.getText();
     }
 
     @Override
     public String getDateField() {
-        swipe(dateField, Direction.VERTICAL, 20, 500);
+        swipe(dateField, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
         return dateField.getText();
     }
 
     @Override
     public void clickSexRadioBtn(String sex) {
         ExtendedWebElement element = sexRadioBtn.format(sex);
-        swipe(element, Direction.VERTICAL, 20, 500);
+        swipe(element, Direction.VERTICAL, FIVE_SWIPES, SLOW_SWIPES);
         sexRadioBtn.format(sex).click(THREE_SECONDS);
     }
 
     @Override
     public boolean isSexRadioBtnChecked(String sex) {
         ExtendedWebElement element = sexRadioBtn.format(sex);
-        swipe(element, Direction.VERTICAL, 20, 500);
+        swipe(element, Direction.VERTICAL, FIVE_SWIPES, SLOW_SWIPES);
         return sexRadioBtn.format(sex).isChecked();
     }
 
     @Override
     public void swipeSeekBar(String percent) {
-        swipe(seekBar, Direction.VERTICAL, 20, 500);
+        swipe(seekBar, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
         seekBar.type(percent);
     }
 
     @Override
     public boolean checkSwitchBtn(boolean checked) {
-        swipe(switchBtn, Direction.VERTICAL, 20, 500);
+        swipe(switchBtn, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
         if(checked) {
 
             switchBtn.check();
@@ -196,7 +195,7 @@ public class UIElementsPage extends UIElementsPageBase {
 
     @Override
     public boolean checkCheckBox(boolean checked) {
-        swipe(checkBox, Direction.VERTICAL, 20, 500);
+        swipe(checkBox, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
         if(checked) {
             checkBox.check();
         } else {

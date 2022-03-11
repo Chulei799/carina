@@ -26,8 +26,4 @@ public class UserInfo extends AbstractUIObject implements IConstants {
     public boolean isUserFieldPresent(String field) {
         return userField.format(field).isElementPresent(FIVE_SECONDS);
     }
-
-    public boolean isPresent() {
-        return isImagePresent();
-    }
 }

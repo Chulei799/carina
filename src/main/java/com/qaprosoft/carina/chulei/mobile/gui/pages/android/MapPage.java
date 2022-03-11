@@ -1,7 +1,6 @@
 package com.qaprosoft.carina.chulei.mobile.gui.pages.android;
 
 import com.qaprosoft.carina.chulei.mobile.gui.pages.common.*;
-import com.qaprosoft.carina.chulei.mobile.gui.pages.components.ImageView;
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
@@ -20,7 +19,7 @@ public class MapPage extends MapPageBase{
     private ExtendedWebElement pageContent;
 
     @FindBy(id = "com.solvd.carinademoapplication:id/image_slider")
-    private ImageView imageView;
+    private ExtendedWebElement imageView;
 
     @FindBy(xpath = "//android.widget.ImageView[@content-desc='%s']")
     private ExtendedWebElement zoom;
@@ -42,7 +41,7 @@ public class MapPage extends MapPageBase{
 
     @Override
     public boolean isImageViewPresent() {
-        return imageView.isViewPagerPresent() && imageView.isAllPagerDotsPresent();
+        return imageView.isElementPresent(THREE_SECONDS);
     }
 
     @Override

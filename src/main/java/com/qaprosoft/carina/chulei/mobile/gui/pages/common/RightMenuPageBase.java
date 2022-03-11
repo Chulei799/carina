@@ -11,6 +11,8 @@ public abstract class RightMenuPageBase extends AbstractPage implements IConstan
         super(driver);
     }
 
+    public abstract boolean isLogoPresent();
+
     public abstract boolean isMenuElementPresent(RMComponent component);
 
     public abstract boolean isOpenBtnPresent();

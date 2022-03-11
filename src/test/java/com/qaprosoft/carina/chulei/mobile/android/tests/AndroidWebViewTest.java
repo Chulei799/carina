@@ -39,8 +39,9 @@ public class AndroidWebViewTest implements IAbstractTest, IMobileUtils, IConstan
         LeftMenuPageBase leftMenuPage = webViewPage.openLeftMenu();
         softAssert.assertTrue(leftMenuPage.isPageOpened(), "Left menu isn't opened(Web View)!");
 
-        for(LMComponent lmComponent : LMComponent.values()) {
-            softAssert.assertTrue(leftMenuPage.isMenuElementPresent(lmComponent), lmComponent.getName() + " page isn't present!");
+        for(LMComponent component : LMComponent.values()) {
+            softAssert.assertTrue(leftMenuPage.isMenuElementPresent(component),
+                    String.format("%s " + "page isn't present!", component.getName()));
         }
 
         ChartsPageBase chartsPage = (ChartsPageBase) leftMenuPage.openPageFromLeftMenu(LMComponent.CHARTS);
@@ -86,10 +87,11 @@ public class AndroidWebViewTest implements IAbstractTest, IMobileUtils, IConstan
         Assert.assertTrue(webViewPage.isPageOpened(), "Web View page isn't opened!");
         RightMenuPageBase rightMenu = webViewPage.openRightMenu();
         softAssert.assertTrue(rightMenu.isPageOpened(), "Right menu isn't opened!");
+        softAssert.assertTrue(rightMenu.isLogoPresent(), "Logo isn't opened!");
         for(RMComponent component : RMComponent.values()) {
-            softAssert.assertTrue(rightMenu.isMenuElementPresent(component), component.getName() + " isn't present!");
+            softAssert.assertTrue(rightMenu.isMenuElementPresent(component),
+                    String.format("%s " + "element isn't present!", component.getName()));
         }
-        webViewPage.openRightMenu();
 
         softAssert.assertAll();
     }

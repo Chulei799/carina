@@ -100,14 +100,15 @@ public class AndroidLoginPageTest implements IAbstractTest, IMobileUtils, IConst
         loginPage.checkPrivacyPolicyCheckBox(true);
         softAssert.assertTrue(loginPage.isPrivacyPolicyCheckBoxChecked(), "Privacy Policy box not checked!");
         loginPage.checkPrivacyPolicyCheckBox(false);
-        softAssert.assertFalse(loginPage.isPrivacyPolicyCheckBoxChecked(), "Privacy Policy box checked, but should not!");
+        softAssert.assertFalse(loginPage.isPrivacyPolicyCheckBoxChecked(),
+                "Privacy Policy box checked, but should not!");
 
         //Scenario 1: Try login without enter user name
         loginPage.setPasswordField(USER_PASS);
         loginPage.selectSex(MALE);
         loginPage.checkPrivacyPolicyCheckBox(true);
-        softAssert.assertFalse(loginPage.isSignUpBtnActive(), "Sign Up button should not be available," +
-                                                                    " if user name not entered!");
+        softAssert.assertFalse(loginPage.isSignUpBtnActive(),
+                "Sign Up button should not be available, if user name not entered!");
 
         //Scenario 2: Try login without enter password
         welcomePage = loginPage.clickBackBtn();
@@ -115,8 +116,8 @@ public class AndroidLoginPageTest implements IAbstractTest, IMobileUtils, IConst
         loginPage.setNameField(USER_NAME);
         loginPage.selectSex(MALE);
         loginPage.checkPrivacyPolicyCheckBox(true);
-        softAssert.assertFalse(loginPage.isSignUpBtnActive(), "Sign Up button should not be available," +
-                                                                    " if password not entered!");
+        softAssert.assertFalse(loginPage.isSignUpBtnActive(),
+                "Sign Up button should not be available, if password not entered!");
 
         //Scenario 3: Try login without select sex
         welcomePage = loginPage.clickBackBtn();
@@ -124,8 +125,8 @@ public class AndroidLoginPageTest implements IAbstractTest, IMobileUtils, IConst
         loginPage.setNameField(USER_NAME);
         loginPage.setPasswordField(USER_PASS);
         loginPage.checkPrivacyPolicyCheckBox(true);
-        softAssert.assertFalse(loginPage.isSignUpBtnActive(), "Sign Up button should not be available," +
-                                                                    " if sex not selected!");
+        softAssert.assertFalse(loginPage.isSignUpBtnActive(),
+                "Sign Up button should not be available, if sex not selected!");
 
         //Scenario 4: Try login without agree with Privacy Policy
         welcomePage = loginPage.clickBackBtn();
@@ -133,8 +134,8 @@ public class AndroidLoginPageTest implements IAbstractTest, IMobileUtils, IConst
         loginPage.setNameField(USER_NAME);
         loginPage.setPasswordField(USER_PASS);
         loginPage.selectSex(MALE);
-        softAssert.assertFalse(loginPage.isSignUpBtnActive(), "Sign Up button should not be available," +
-                                                                    " if privacy policy not accepted!");
+        softAssert.assertFalse(loginPage.isSignUpBtnActive(),
+                "Sign Up button should not be available, if privacy policy not accepted!");
 
         //Scenario 5: All fields entered and selected
         welcomePage = loginPage.clickBackBtn();

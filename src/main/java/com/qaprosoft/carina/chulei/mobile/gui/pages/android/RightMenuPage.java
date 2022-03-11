@@ -21,43 +21,21 @@ public class RightMenuPage extends RightMenuPageBase {
     @FindBy(xpath = "//android.view.View[@content-desc='www.carina-core']")
     private ExtendedWebElement logo;
 
-    @FindBy(xpath = "//android.view.View[@content-desc='Read on GitHub']/android.widget.TextView")
-    private ExtendedWebElement readOnGitHub;
-
-    @FindBy(xpath = "//android.view.View[@content-desc='Installation Guide']/android.widget.TextView")
-    private ExtendedWebElement installationGuide;
-
-    @FindBy(xpath = "//android.view.View[@content-desc='Go to Zebrunner']/android.widget.TextView")
-    private ExtendedWebElement goToZebrunner;
-
-    @FindBy(xpath = "//android.view.View[@content-desc='Donate']/android.widget.TextView")
-    private ExtendedWebElement donate;
-
-    @FindBy(xpath = "//android.view.View[@content-desc='Contact Us']/android.widget.TextView")
-    private ExtendedWebElement contactUs;
+    @FindBy(xpath = "//android.view.View[@content-desc='%s']/android.widget.TextView")
+    private ExtendedWebElement menuElement;
 
     public RightMenuPage(WebDriver driver) {
         super(driver);
     }
 
     @Override
+    public boolean isLogoPresent() {
+        return logo.isElementPresent(THREE_SECONDS);
+    }
+
+    @Override
     public boolean isMenuElementPresent(RMComponent component) {
-        switch (component) {
-            case LOGO:
-                return logo.isElementPresent(THREE_SECONDS);
-            case GO_TO_ZEBRUNNER:
-                return goToZebrunner.isElementPresent(THREE_SECONDS);
-            case INSTALLATION_GUIDE:
-                return installationGuide.isElementPresent(THREE_SECONDS);
-            case READ_ON_GITHUB:
-                return readOnGitHub.isElementPresent(THREE_SECONDS);
-            case DONATE:
-                return donate.isElementPresent(THREE_SECONDS);
-            case CONTACT_US:
-                return contactUs.isElementPresent(THREE_SECONDS);
-        }
-        Assert.fail("Right menu | No such component!");
-        return false;
+        return menuElement.format(component.getName()).isElementPresent(THREE_SECONDS);
     }
 
     @Override
